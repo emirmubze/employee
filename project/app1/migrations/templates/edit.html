@@ -1,0 +1,38 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit Employee</title>
+</head>
+<body>
+    <h1>Edit Employee</h1>
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <input type="text" name="name"
+               value="{{ employee.name }}" required><br><br>
+
+        <input type="email" name="email"
+               value="{{ employee.email }}" required><br><br>
+
+        <select name="department" required>
+            <option value="IT" {% if employee.department == 'IT' %}selected{% endif %}>IT</option>
+            <option value="HR" {% if employee.department == 'HR' %}selected{% endif %}>HR</option>
+            <option value="Sales" {% if employee.department == 'Sales' %}selected{% endif %}>Sales</option>
+            <option value="Finance" {% if employee.department == 'Finance' %}selected{% endif %}>Finance</option>
+        </select><br><br>
+
+        <input type="number" name="salary"
+               value="{{ employee.salary }}" required><br><br>
+
+        <input type="date" name="joining_date"
+               value="{{ employee.joining_date|date:'Y-m-d' }}"
+               required><br><br>
+
+        <button type="submit">Update Employee</button>
+    </form>
+
+    <a href="{% url 'dashboard' %}">Back</a>
+</body>
+</html>

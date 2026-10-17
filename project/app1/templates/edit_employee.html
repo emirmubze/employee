@@ -1,0 +1,58 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Employee</title>
+    <link rel="stylesheet" href="{% static 'app1/styles.css' %}">
+</head>
+<body>
+    <main class="page-shell form-shell">
+        <a class="back-link" href="{% url 'dashboard' %}">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M19 12H5m7 7-7-7 7-7"></path>
+            </svg>
+            Employee directory
+        </a>
+        <section class="form-heading">
+            <h1>Edit employee</h1>
+        </section>
+        <form class="employee-form" method="POST">
+            {% csrf_token %}
+            <div class="form-grid">
+                <div class="field">
+                    <label for="name">Full name</label>
+                    <input id="name" type="text" name="name" value="{{ employee.name }}" required>
+                </div>
+                <div class="field">
+                    <label for="email">Email address</label>
+                    <input id="email" type="email" name="email" value="{{ employee.email }}" required>
+                </div>
+                <div class="field">
+                    <label for="department">Department</label>
+                    <select id="department" name="department" required>
+                        <option value="IT" {% if employee.department == 'IT' %}selected{% endif %}>IT</option>
+                        <option value="HR" {% if employee.department == 'HR' %}selected{% endif %}>HR</option>
+                        <option value="Sales" {% if employee.department == 'Sales' %}selected{% endif %}>Sales</option>
+                        <option value="Finance" {% if employee.department == 'Finance' %}selected{% endif %}>Finance</option>
+                    </select>
+                </div>
+                <div class="field">
+                    <label for="salary">Salary</label>
+                    <input id="salary" type="number" name="salary" value="{{ employee.salary }}" required>
+                </div>
+                <div class="field">
+                    <label for="joining_date">Joining date</label>
+                    <input id="joining_date" type="date" name="joining_date"
+                           value="{{ employee.joining_date|date:'Y-m-d' }}" required>
+                </div>
+            </div>
+            <div class="form-actions">
+                <a class="button button-light" href="{% url 'dashboard' %}">Cancel</a>
+                <button class="button button-primary" type="submit">Save changes</button>
+            </div>
+        </form>
+    </main>
+</body>
+</html>
